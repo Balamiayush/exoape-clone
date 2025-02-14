@@ -2,6 +2,7 @@ import React from 'react'
 import Home from './pages/Home'
 import Lenis from 'lenis'
 import gsap from 'gsap'
+import Navbar from './components/Navbar'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 const App = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -21,6 +22,7 @@ gsap.ticker.lagSmoothing(0);
   return (
     <div className='relative w-full '>
       <Home />
+      <Navbar />
     </div>
   )
 }

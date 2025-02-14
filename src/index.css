@@ -1,3 +1,4 @@
+@import "tailwindcss";
 .right-nav a {
   position: relative;
 }
@@ -18,4 +19,5 @@
 .right-nav a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
-}/*# sourceMappingURL=index.css.map */
+}
+
