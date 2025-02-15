@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import logo from "../assets/logo.svg";
+import { motion } from "framer-motion";
+import { stagger } from "framer-motion";
 // import { Power4 } from "gsap/Ease";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,19 +83,36 @@ const Navbar = () => {
           isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
-        <div className="left-nav flex items-center gap-2">
+        <motion.div
+        initial={{opacity:0,y:-100}}
+        animate={{opacity:1,y:0}}
+        transition={{duration:1}}
+         className="left-nav flex items-center gap-2">
           <img src={logo} className="w-20 cursor-pointer" alt="logo" />
-        </div>
-        <div className="right-nav flex items-center gap-10">
-          <a href="#">Work</a>
-          <a href="#">Studio</a>
-          <a href="#">News</a>
-          <a href="#">Contact</a>
-        </div>
+        </motion.div>
+        <motion.div
+          stagger={0.2}
+          className="right-nav flex items-center gap-10"
+        >
+          {["Work", "Studio", "News", "Contact"].map((item, index) => (
+            <motion.a
+              key={index}
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 ,
+              delay:index*0.2
+              }}
+              href="#"
+              className="text-xl"
+            >
+              {item}
+            </motion.a>
+          ))}
+        </motion.div>
       </nav>
 
       {/* Mobile Navbar - Visible on scroll, hidden at top */}
-      <div className="w-full main h-[200vh]">
+      <div className="w-full main ">
         <div
           className={`fixed top-0 left-0 right-0 z-50 px-5 h-16 flex justify-between items-center ${
             isScrolled ? "block" : "hidden"
@@ -104,7 +123,7 @@ const Navbar = () => {
           {/* Hamburger Icon */}
           <div
             onClick={handleMenu}
-            className="cursor-pointer z-[200] flex flex-col gap-1 items-center justify-center w-10 h-10"
+            className="cursor-pointer z-[400] flex flex-col gap-1 items-center justify-center w-10 h-10"
           >
             <div className="line line-1 bg-white w-8 h-[2px]"></div>
             <div className="line line-2 bg-white w-8 h-[2px]"></div>
@@ -115,7 +134,7 @@ const Navbar = () => {
         {/* Mobile Menu - No scrolling when open */}
         <div
           ref={menuRef}
-          className="fixed  top-0 left-0 w-full  bg-[#0D0E13] text-white flex flex-col items-center justify-center gap-6 overflow-hidden"
+          className="fixed  top-0 left-0 w-full h-full z-10 bg-[#0D0E13] text-white flex flex-col items-center justify-center gap-6 overflow-hidden"
         >
           <div className="right-nav flex items-center gap-5 flex-col text-[4rem]">
             <a href="#" onClick={handleMenu}>
